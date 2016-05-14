@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Home</title>
+        
+    </head>
+<body>
+    {% for ip,status in statuses.items %}
+    <p>IP: {{ ip }}</p>
+    <p><span id="{{ip}}">STATUS: {{ status }}</span></p>
+
+    {% endfor %}
+    <input type="button" value="update" onclick="refreshStatus()";
+</body>
+
+<script type="text/javascript" charset="utf-8">
+    
+function refreshStatus()
+{
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            var jsonObj = JSON.parse(xhttp.responseText);
+            //console.log(jsonObj);
+            for (var key in jsonObj) {
+                if (jsonObj.hasOwnProperty(key)) {
+                    var val = jsonObj[key];
+                    //console.log(val);
+                    document.getElementById(key).innerHTML="STATUS: "+val;
+                }
+            }
+            
+        }
+    };
+    xhttp.open("GET", "/update/", true);
+    xhttp.send();
+}
+</script>
+</html>
