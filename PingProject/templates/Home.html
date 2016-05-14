@@ -16,29 +16,31 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>  
 
     </head>
-<body>
-    <table class="table table-hover" border="" cellspacing="5" cellpadding="5">
-        <tr>
-            <th>IP Address</th>
-            <th>Status</th>
-        </tr>
-        {% for ip,status in statuses.items %}
-        <tr>
-            <td>{{ip}}</td>
-            {% ifequal status "OK" %}
-                <td><span class="label label-success" id="{{ip}}">STATUS: {{ status }}</span></td>
-            {% else %}
-                <td><span class="label label-danger" id="{{ip}}">STATUS: {{ status }}</span></td>
-            {% endifequal %}
-        </tr>
-        {% endfor %}
-    </table>
-    <!-- {% for ip,status in statuses.items %} -->
-    <!-- <p>IP: {{ ip }}</p> -->
-    <!-- <p><span id="{{ip}}">STATUS: {{ status }}</span></p> -->
+    <body>
+        <div class="container">
+            <table class="table table-hover" border="" cellspacing="5" cellpadding="5">
+                <tr>
+                    <th>IP Address</th>
+                    <th>Status</th>
+                </tr>
+                {% for ip,status in statuses.items %}
+                <tr>
+                    <td>{{ip}}</td>
+                    {% ifequal status "OK" %}
+                    <td><span class="label label-success" id="{{ip}}">STATUS: {{ status }}</span></td>
+                    {% else %}
+                    <td><span class="label label-danger" id="{{ip}}">STATUS: {{ status }}</span></td>
+                    {% endifequal %}
+                </tr>
+                {% endfor %}
+            </table>
+            <!-- {% for ip,status in statuses.items %} -->
+            <!-- <p>IP: {{ ip }}</p> -->
+            <!-- <p><span id="{{ip}}">STATUS: {{ status }}</span></p> -->
 
-    <!-- {% endfor %} -->
-    <p>Values are updated every two seconds.</p>
+            <!-- {% endfor %} -->
+            <p>Values are updated every two seconds.</p>
+        </div>
 </body>
 
 <script type="text/javascript" charset="utf-8">
