@@ -1,22 +1,51 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Home</title>
-        
+        <title>Home|IP Address Status</title>
+
+        <!-- JQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
+        <!-- Latest compiled and minified Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+        <!-- Latest compiled and minified Bootstrap JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>  
+
     </head>
 <body>
-    {% for ip,status in statuses.items %}
-    <p>IP: {{ ip }}</p>
-    <p><span id="{{ip}}">STATUS: {{ status }}</span></p>
+    <table class="table table-hover" border="" cellspacing="5" cellpadding="5">
+        <tr>
+            <th>IP Address</th>
+            <th>Status</th>
+        </tr>
+        {% for ip,status in statuses.items %}
+        <tr>
+            <td>{{ip}}</td>
+            {% ifequal status "OK" %}
+                <td><span class="label label-success" id="{{ip}}">STATUS: {{ status }}</span></td>
+            {% else %}
+                <td><span class="label label-danger" id="{{ip}}">STATUS: {{ status }}</span></td>
+            {% endifequal %}
+        </tr>
+        {% endfor %}
+    </table>
+    <!-- {% for ip,status in statuses.items %} -->
+    <!-- <p>IP: {{ ip }}</p> -->
+    <!-- <p><span id="{{ip}}">STATUS: {{ status }}</span></p> -->
 
-    {% endfor %}
-    <input type="button" value="update" onclick="refreshStatus()";
+    <!-- {% endfor %} -->
+    <p>Values are updated every two seconds.</p>
 </body>
 
 <script type="text/javascript" charset="utf-8">
     
 function refreshStatus()
 {
+    //console.log('refreshing');
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
@@ -27,6 +56,10 @@ function refreshStatus()
                     var val = jsonObj[key];
                     //console.log(val);
                     document.getElementById(key).innerHTML="STATUS: "+val;
+                    if(val=="OK")
+                        document.getElementById(key).className = "label label-success";
+                    else
+                        document.getElementById(key).className = "label label-danger";
                 }
             }
             
@@ -35,5 +68,6 @@ function refreshStatus()
     xhttp.open("GET", "/update/", true);
     xhttp.send();
 }
+setInterval(refreshStatus,2000); //Refresh after every two seconds
 </script>
 </html>

@@ -5,7 +5,7 @@ import subprocess
 # Create your views here.
 def HomeView(request):
     dictValues = {}
-    addresses = [ 'google.com','sugeek.net','eskxdjfl.com/']
+    addresses = [ 'google.com','sugeek.net','eskxdjfl.com/'] #Change IP Addresses accordingly
     statuses = {} #Active or not
     for ping in addresses:
         address = (ping)
