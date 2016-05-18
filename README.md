@@ -8,3 +8,4 @@ python manage.py runserver
 
 Then open your web browser and go to the following address:
 localhost:8000/
+
