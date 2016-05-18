@@ -9,3 +9,7 @@ python manage.py runserver
 Then open your web browser and go to the following address:
 localhost:8000/
 
+Here is a screenshot of the app running in Chromium Browser in Ubuntu:
+
+![alt tag](https://github.com/nikssardana/pingApp/blob/master/screenshot.png)
+
